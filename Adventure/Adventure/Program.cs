@@ -17,7 +17,12 @@ namespace Adventure
             int playerMagic = 0;
             int playerRanged = 0;
             int Arraycount = 0;
-            
+            int Player_Attack_Type = 0;
+            int Player_HitPoints = 0;
+            int Player_Mana = 0;
+            int Skill_Point_Outcome = 0;
+
+
             string gender;
             string race;
             string charClass;
@@ -306,8 +311,8 @@ namespace Adventure
                 
                 for (Arraycount = 0; Arraycount <= 19; Arraycount++)
                 {
-                    
-                    Console.SetCursorPosition(0, Arraycount);
+                    int inventory_position = Arraycount + 1;
+                    Console.SetCursorPosition(0, inventory_position);
                     Console.WriteLine("\n {0}", Inventory[Arraycount]);
                 }
             }
@@ -317,7 +322,97 @@ namespace Adventure
             }
             Console.ReadLine();
 
+            //COMBAT SYSTEM 
 
+            Random random = new Random();//random number generator (100 sided die)
+            int randomNumber = random.Next(0, 100);
+
+            //sample enemy
+           string Enemy_Name = "Rat";
+            int Enemy_Health_Points = 12;
+
+            do
+            {
+                correct = 0;
+                Console.Clear();
+                Console.WriteLine("Hit Points: {0}" +
+                    "Mana: {1}", Player_HitPoints, Player_Mana);
+                Console.WriteLine("Enemy: {0}" +
+                    "Hit Points: {1}", Enemy_Name, Enemy_Health_Points);
+                Console.WriteLine("\n Choose your action: \n");
+                Console.WriteLine("1. One-Handed Attack.");
+                Console.WriteLine("2. Two-Handed Attack.");
+                Console.WriteLine("3. Ranged Attack.");
+                Console.WriteLine("4. Cast Damage Spell.");
+                Player_Attack_Type = Convert.ToInt32(Console.ReadLine());
+                if (Player_Attack_Type == 1)
+                {
+                    Random Damage_Roll = new Random();
+                    int Random_Damage_Roll = random.Next(0, playerOneHanded);
+                    Console.WriteLine("{0}", Random_Damage_Roll);
+                    Random Skill_Point_Roll = new Random();
+                    Skill_Point_Outcome = Skill_Point_Roll.Next(0, 11);
+                    if (Skill_Point_Outcome > 6 && Random_Damage_Roll > 0)
+                    {
+                        Random_Damage_Roll = Random_Damage_Roll + playerOneHanded;
+                        Console.WriteLine("CRITICAL HIT!! Add {0} extra damage", playerOneHanded);
+                    }
+                    else { }
+                    Console.WriteLine("You did {0} damage to the {1}", Random_Damage_Roll, Enemy_Name);
+                    Enemy_Health_Points = Enemy_Health_Points - Random_Damage_Roll;
+                }
+
+                if (Player_Attack_Type == 2)
+                {
+                    Random Damage_Roll = new Random();
+                    int Random_Damage_Roll = random.Next(0, playerTwoHanded);
+                    Console.WriteLine("{0}", Random_Damage_Roll);
+                    Random Skill_Point_Roll = new Random();
+                    //Skill_Point_OutCome = Skill_Point_Roll.Next(0, 11);
+                    if (Skill_Point_Outcome > 6 && Random_Damage_Roll > 0)
+                    {
+                        Random_Damage_Roll = Random_Damage_Roll + playerTwoHanded;
+                        Console.WriteLine("CRITICAL HIT!! Add {0} extra damage", playerTwoHanded);
+                    }
+                    else { }
+                    Console.WriteLine("You did {0} damage to the {1}", Random_Damage_Roll, Enemy_Name);
+                    Enemy_Health_Points = Enemy_Health_Points - Random_Damage_Roll;
+                }
+
+                //if (Player_Attack_Type == 2)
+                //{
+                //    Random Damage_Roll = new Random();
+                //    int Random_Damage_Roll = random.Next(0, playerRanged);
+                //    Console.WriteLine("{0}", Random_Damage_Roll);
+                //    Random Skill_Point_Outcome = random.Next(0, 11);
+                //    if (Skill_Point_Outcome > 6 && Random_Damage_Roll > 0)
+                //    {
+                //        Random_Damage_Roll = Random_Damage_Roll + playerRanged;
+                //        Console.WriteLine("CRITICAL HIT!! Add {0} extra damage", playerRanged);
+                //    }
+                //    else { }
+                //    Console.WriteLine("You did {0} damage to the {1}", Random_Damage_Roll, Enemy_Name);
+                //    Enemy_Health_Points = Enemy_Health_Points - Random_Damage_Roll;
+                //}
+
+                //if (Player_Attack_Type == 2)
+                //{
+                //    Random Damage_Roll = new Random();
+                //    int Random_Damage_Roll = random.Next(0, playerMagic);
+                //    Console.WriteLine("{0}", Random_Damage_Roll);
+                //    Random Skill_Point_Outcome = random.Next(0, 11);
+                //    if (Skill_Point_Outcome > 6 && Random_Damage_Roll > 0)
+                //    {
+                //        Random_Damage_Roll = Random_Damage_Roll + playerMagic;
+                //        Console.WriteLine("CRITICAL HIT!! Add {0} extra damage", playerMagic);
+                //    }
+                //    else { }
+                //    Console.WriteLine("Youre magic ravaged the enemy and did {0} damage to the {1}", Random_Damage_Roll, Enemy_Name);
+                //    Enemy_Health_Points = Enemy_Health_Points - Random_Damage_Roll;
+                //}
+                else { }
+                Console.ReadLine();
+            } while (correct == 0);
 
 
 
